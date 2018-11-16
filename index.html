@@ -4,15 +4,27 @@
 	<title>geolocate</title>
 </head>
 <body>
+<style type="text/css">
+	tr, th, td {
+		outline: solid 1px black;
+	}
+</style>
 
 <p>Click the button to get your coordinates.</p>
 
 <button onclick="myFunction()">Try It</button>
 
-<p id="demo"></p>
+<table id="myTable">
+  <tr>
+  	<th>Timestamp</th>
+    <th>Latitude</th>
+    <th>Longitude</th>
+  </tr>
+</table>
 
 <script>
-var x = document.getElementById("demo");
+var x = document.getElementById("myTable");
+let rowCount = 1;
 
 function getLocation() {
     if (navigator.geolocation) {
@@ -24,8 +36,17 @@ function getLocation() {
 }
 
 function showPosition(position) {
-    x.innerHTML += "<br>" + new Date() + "<br>Latitude: " + position.coords.latitude + 
-    "<br>Longitude: " + position.coords.longitude;
+    // x.innerHTML += "<br>" + new Date() + "<br>Latitude: " + position.coords.latitude + 
+    // "<br>Longitude: " + position.coords.longitude;
+
+    let row = x.insertRow(rowCount);
+    let cell1 = row.insertCell(0);
+	let cell2 = row.insertCell(1);
+	let cell3 = row.insertCell(2);
+	cell1.innerHTML = new Date();
+	cell2.innerHTML = position.coords.latitude;
+	cell3.innerHTML = position.coords.longitude;
+	rowCount++;
 }
 
 function myFunction() {
